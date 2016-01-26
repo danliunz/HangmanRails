@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  secret: MyString
+  guesses: MyString
+  max_allowed_misses: 
+
+two:
+  secret: MyString
+  guesses: MyString
+  max_allowed_misses: 

@@ -4,14 +4,23 @@
 
 <h3>Active game for current player</h3>
 <div>
-  <p>guesses: <%= @active_game.state.guesses %></p>
-  <p>secret: <%= @active_game.state.secret.join %></p>
+  <% if @active_game.won? %>
+    You have won!
+  <% elsif @active_game.lost? %>
+    You have lost...
+  <% end %>
+</div>
+
+<div>
+  <p>guesses: <%= @active_game.guesses.join(", ") %></p>
+  <p>secret: <%= @active_game.secret %></p>
+</div>
+
+<div>
+  Secret: <%= @active_game.secret.gsub(/./) { |c| @active_game.guessed?(c) ? "#{c} " : "_ " } %>
 </div>
 <div>
-  Secret: <%= @active_game.state.secret.map { |c| @active_game.state.guessed?(c) ? c : "_" }.join(" ") %>
-</div>
-<div>
-  Lives left: <%= @active_game.state.max_misses - @active_game.state.missed_guesses.size %>
+  Lives left: <%= @active_game.max_misses - @active_game.missed_guesses.size %>
 </div>
 
 <!-- Submit a guess to active game -->
@@ -19,7 +28,11 @@
   <%= form_for(:guess, url: submit_guess_path) do |f| %>
     <div>
       <%= f.text_field :content, maxlength: 1, size: 10 %>
-      <%= f.submit value: "Guess" %>
+      <% if @active_game.over? %>
+        <%= f.submit value: "Guess", disabled: 1%>
+      <% else %>
+        <%= f.submit value: "Guess" %>
+      <% end %>
     </div>
   <% end %>
 </div>

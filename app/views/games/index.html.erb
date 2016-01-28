@@ -1,0 +1,17 @@
+<% if notice %>
+<div class="alert"><%= notice %></div>
+<% end %>
+
+<!-- Start a new game -->
+<div>
+<%= button_to "Start new game", games_path %>
+</div>
+
+<!-- Game history with pagination -->
+<% games = @games.map { |game| GamePresenter.new(game) } %>
+
+<h3>Game History</h3>
+<%= render partial: "games", locals: { games: games } %>
+<%= will_paginate @games %>
+
+

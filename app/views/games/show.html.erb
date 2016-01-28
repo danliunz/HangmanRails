@@ -1,0 +1,37 @@
+<div>
+  <% if @game.won? %>
+    You have won!
+  <% elsif @game.lost? %>
+    You have lost...
+  <% end %>
+</div>
+
+<div>
+  Secret: <%= @game.over? ? @game.secret : @game.obscured_secret %>
+</div>
+<div>Guesses: <%= @game.guesses %></div>
+<div>
+  Lives left: <%= @game.max_misses - @game.missed_guesses.size %>
+</div>
+
+<% if alert %>
+  <p class="alert"><%= alert %></p>
+<% end %>
+
+<!-- Submit guess -->
+<div>
+  <%= form_tag submit_guess_path(@game) do %>
+    <% @game.errors[:guess].each do |error| %>
+      <div><%= error %></div>
+    <% end %>
+    
+    <div>
+      <%= text_field_tag "guess", nil, maxlength: 1, size: 10 %>
+      <%= submit_tag "Guess", disabled: (@game.over?) %>
+    </div>
+  <% end %>
+</div>
+
+<div>
+  <button><%= link_to "Back", games_path %></button>
+</div>

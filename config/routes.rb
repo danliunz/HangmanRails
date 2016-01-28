@@ -1,16 +1,15 @@
 Rails.application.routes.draw do
-  get 'games' => 'games#dash_board', as: 'games'
+  get 'games' => 'games#index', as: 'games'
   post 'games' => 'games#create'
   
-  get 'games/active' => 'games#show_active_game', as: 'active_game'
-  
-  post 'games/active/submit_guess' => 'games#submit_guess', as: 'submit_guess'
+  get 'games/:id' => 'games#show', as: 'game'
+  post 'games/:id' => 'games#submit_guess', as: 'submit_guess'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'games#dash_board'
+  root 'games#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

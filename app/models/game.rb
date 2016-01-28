@@ -1,9 +1,8 @@
 class Game < ActiveRecord::Base
   
-  # 'guesses' is stored as string in DB, but array of char 
-  # presenting player's guesses is more intuitive in business logic
-  def guesses=(new_guesses)
-    super(new_guesses.join)
+  # -guesses- : array of char or string
+  def guesses=(guesses)
+    super(Array(guesses).join)
   end
   
   def guesses
@@ -11,8 +10,8 @@ class Game < ActiveRecord::Base
   end
   
   def submit_guess(guess)
-    self.guesses = self.guesses << guess
-    refresh_status
+    self.guesses = guesses << guess
+    self
   end
   
   def guessed?(guess)
@@ -33,13 +32,5 @@ class Game < ActiveRecord::Base
   
   def lost?
     missed_guesses.size >= max_misses
-  end
-  
-  def refresh_status
-    self.status = case
-      when won?; 1
-      when lost?; 2
-      else; 0
-    end
   end
 end

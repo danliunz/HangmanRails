@@ -1,0 +1,15 @@
+<div class="game-status">
+  <% if game.won? %>
+    <div class="alert alert-success">Game Won</div>
+  <% elsif game.lost? %>
+    <div class="alert alert-danger">Game Lost</div>
+  <% end %>
+  
+  <% unless game.errors.empty?%>
+    <div class="alert alert-danger">
+      <% game.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+      <% end %>
+    </div>
+  <% end %>
+</div>

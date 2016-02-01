@@ -1,3 +1,50 @@
 // Place all the styles related to the games controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.game-title {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  
+  .label {
+    margin-right: -0.2em;
+    font-size: 100%;
+  }
+}
+
+.game-status-img {
+  padding-top: 10px;
+}
+
+.game-status {
+  padding-top: 10px;
+  text-align: center;
+  
+  .alert {
+    padding: 5px 10px;
+    font-weight: bold;
+  }
+}
+
+.game-secret .label {
+  font-size: 1.5em;
+  display: inline-block;
+  width: 1.7em;
+}
+
+.game-input {
+  .btn-group {
+    padding: 0.5em 0;
+    margin-left: -12px;
+    
+    .btn {
+      border-color: transparent;
+      font-size: 150%;
+      font-style: italic;
+    }
+  }
+}
+
+#submit_guess_form {
+  display: none;
+}

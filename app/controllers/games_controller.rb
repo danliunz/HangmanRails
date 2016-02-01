@@ -22,10 +22,10 @@ class GamesController < ApplicationController
   def submit_guess
     guess = params[:guess]
     
-    if Game::Validator.invalid_guess?(guess, @game)
+    if @game.invalid_guess?(guess)
       render action: "show"
     else
-      @game.submit_guess(guess).save!
+      @game.submit_guess(guess.downcase).save!
       redirect_to game_url(@game)
     end
   end

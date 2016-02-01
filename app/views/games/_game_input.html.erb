@@ -1,0 +1,31 @@
+<div class="game-input panel panel-default">
+  <div class="panel-heading">
+    Click on a letter
+  </div>
+  <div class="panel-body">
+    <% ("a" .. "z").each_slice(9) do |chars| %>
+      <div>
+        <div class="btn-group">
+          <% chars.each do |c| %>
+            <button class="btn btn-default 
+                           <%= 'invisible' if game.guessed?(c) %>
+                           <%= 'disabled' if game.over? %>">
+              <%= c %>
+            </button>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- hidden submission form -->
+<div>
+  <%= form_tag submit_guess_path(game), id: "submit_guess_form" do %>
+    <div>
+     <%= text_field_tag "guess", nil%>
+     <%= submit_tag "Guess" %>
+    </div>
+  <% end %>
+</div>
+  

@@ -1,5 +1,7 @@
 class Game < ActiveRecord::Base
   
+  include GuessValidator
+  
   # -guesses- : array of char or string
   def guesses=(guesses)
     super(Array(guesses).join)

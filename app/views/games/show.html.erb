@@ -1,37 +1,25 @@
-<div>
-  <% if @game.won? %>
-    You have won!
-  <% elsif @game.lost? %>
-    You have lost...
-  <% end %>
-</div>
-
-<div>
-  Secret: <%= @game.over? ? @game.secret : @game.obscured_secret %>
-</div>
-<div>Guesses: <%= @game.guesses %></div>
-<div>
-  Lives left: <%= @game.max_misses - @game.missed_guesses.size %>
-</div>
-
-<% if alert %>
-  <p class="alert"><%= alert %></p>
-<% end %>
-
-<!-- Submit guess -->
-<div>
-  <%= form_tag submit_guess_path(@game) do %>
-    <% @game.errors[:guess].each do |error| %>
-      <div><%= error %></div>
-    <% end %>
-    
-    <div>
-      <%= text_field_tag "guess", nil, maxlength: 1, size: 10 %>
-      <%= submit_tag "Guess", disabled: (@game.over?) %>
+<div class="container-fluid">
+  <%= render "game_title" %>
+  
+  <div class="row">
+    <div class="col-xs-8">
+      <%= render partial: "game_status", locals: { game: @game } %>
+      <%= render partial: "game_secret", locals: { game: @game } %>
+      <%= render partial: "game_input", locals: { game: @game } %>
     </div>
-  <% end %>
-</div>
+    <div class="col-xs-4">
+      <%= 
+        image_tag "hang_#{@game.missed_guesses.size + 1}.gif",
+                  alt: "#{@game.missed_guesses.size} missed guesses",
+                  class: "game-status-img"
+      %>
+    </div>
+  </div>
+  
+  <div>
+    <button class="btn btn-default">
+      <%= link_to "Back", games_path %>
+    </button>
+  </div>
 
-<div>
-  <button><%= link_to "Back", games_path %></button>
 </div>

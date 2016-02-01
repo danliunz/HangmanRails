@@ -1,10 +1,6 @@
 class GamePresenter < SimpleDelegator
-  def obscured_secret
-    secret.gsub(/./) { |c| guessed?(c) ? "#{c} " : "_ " }
-  end
-  
-  def guesses
-    super.join(" ")
+  def need_not_obsecure?(secret_char)
+    over? || guessed?(secret_char)
   end
   
   def last_played_at

@@ -3,12 +3,12 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
-  rescue_from ActiveRecord::RecordNotFound, with: :show_missing_record_error
+  rescue_from ActiveRecord::ActiveRecordError, with: :show_db_error
   
   private
   
-  def show_missing_record_error(exception)
+  def show_db_error(exception)
     @exception = exception
-    render template: "errors/missing_record"
+    render template: "errors/db_error"
   end
 end

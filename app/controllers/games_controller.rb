@@ -14,9 +14,12 @@ class GamesController < ApplicationController
   def create
     game = Game.new(secret: ChooseRandomWord.call,
                     max_misses: Game::Config::MAX_GUESS_MISS)
-    game.save!
     
-    redirect_to game_url(game)
+    if game.save
+      redirect_to game_url(game)
+    else
+      redirect_to games_url, alert: "Fail to create new game"
+    end
   end
   
   def submit_guess

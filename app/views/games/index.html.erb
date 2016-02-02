@@ -1,17 +1,31 @@
-<% if notice %>
-<div class="alert"><%= notice %></div>
-<% end %>
-
-<!-- Start a new game -->
-<div>
-<%= button_to "Start new game", games_path %>
+<div class="container-fluid">
+  <%= render "game_title" %>
+  
+  <% if alert %>
+    <div class="alert alert-danger"><%= alert %></div>
+  <% end %>
+  
+  <div class="row">
+    <div class="col-xs-12">
+      <%= form_tag games_url do %>
+        <%= button_tag "Create New Game", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="row game-history">
+    <div class="col-xs-12">
+      <h4>Game History</h4>
+      
+      <%= render partial: "game_history", 
+                 locals: { games: @games.map { |g| GamePresenter.new(g) } } %>
+      
+      <%= will_paginate @games, class: "digg_pagination",
+                                previous_label: "«",
+                                next_label: "»" %>
+    </div>
+  </div>
 </div>
 
-<!-- Game history with pagination -->
-<% games = @games.map { |game| GamePresenter.new(game) } %>
-
-<h3>Game History</h3>
-<%= render partial: "games", locals: { games: games } %>
-<%= will_paginate @games %>
 
 

@@ -1,0 +1,38 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Secret</th>
+      <th>Attempts</th>
+      <th>Status</th>
+      <th>Last played at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% games.each do |game| %>
+      <tr>
+        <td>
+          <%= game.secret.gsub(/./) do |c| %>
+            <% game.need_obsecure_from_player?(c) ? " _ " : "#{c}"%>
+          <% end %>
+        </td>
+        <td>
+          <%= game.guesses.join(" ") %>
+        </td>
+        <td>
+          <% if game.won? %>
+            <button class="btn btn-success" disabled>won</button>
+          <% elsif game.lost? %>
+            <button class="btn btn-danger" disabled>lost</button>
+          <% else %>
+            <button class="btn btn-default">
+              <%= link_to "resume", game_path(game) %>
+            </button>
+          <% end %>
+        </td>
+        <td>
+          <%= game.last_played_at %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

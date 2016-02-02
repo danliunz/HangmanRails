@@ -1,6 +1,6 @@
-$(document).ready(function() {
-  init_guess_submission();
-});
+// $(document).ready(function() {
+  // init_guess_submission();
+// });
 
 function init_guess_submission() {
   $('.game-input .btn').click(function(event) {

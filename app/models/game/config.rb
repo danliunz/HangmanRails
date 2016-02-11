@@ -1,5 +1,5 @@
 class Game
   class Config
-    MAX_GUESS_MISS = 6
+    NUM_OF_LIVES = 6
   end
 end

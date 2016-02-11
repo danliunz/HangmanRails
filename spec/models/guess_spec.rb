@@ -4,7 +4,7 @@ RSpec.describe Guess, :type => :model do
   context "when created incorrectly" do
     let(:secret) { "wellington" }
     let(:game) do 
-      game = Game.new(secret: secret, max_misses: 6)
+      game = Game.new(secret: secret, num_of_lives: 6)
       game.save!
       game
     end
@@ -46,7 +46,7 @@ RSpec.describe Guess, :type => :model do
   
   context "when created correctly" do
     let(:game) do 
-      game = Game.new(secret: "success", max_misses: 6)
+      game = Game.new(secret: "success", num_of_lives: 6)
       game.save!
       game
     end

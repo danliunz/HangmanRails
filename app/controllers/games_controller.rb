@@ -13,10 +13,9 @@ class GamesController < ApplicationController
   end
   
   def create
-    # TODO: constant name = > lives?
     game = Game.new(
       secret: ChooseRandomWord.call,
-      max_misses: Game::Config::MAX_GUESS_MISS
+      num_of_lives: Game::Config::NUM_OF_LIVES
     )
     
     if game.save

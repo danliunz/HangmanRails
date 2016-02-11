@@ -9,22 +9,22 @@ RSpec.describe Game, :type => :model do
   
   context "when created incorrectly" do
     it "reports invalid secret" do
-      game = Game.new(secret: "Not a lower case word", max_misses: 6)
+      game = Game.new(secret: "Not a lower case word", num_of_lives: 6)
       expect(game).not_to be_valid
       expect(game.errors[:secret]).not_to be_empty
     end
     
-    it "reports invalid max_misses" do
-      game = Game.new(secret: "valid", max_misses: -1)
+    it "reports invalid num_of_lives" do
+      game = Game.new(secret: "valid", num_of_lives: -1)
       expect(game).not_to be_valid
-      expect(game.errors[:max_misses]).not_to be_empty
+      expect(game.errors[:num_of_lives]).not_to be_empty
     end
   end
   
   context "when created correctly" do
     let(:secret) { "goblin" }
-    let(:max_misses) { 6 }
-    subject(:game) { Game.new(secret: secret, max_misses: max_misses) }
+    let(:num_of_lives) { 6 }
+    subject(:game) { Game.new(secret: secret, num_of_lives: num_of_lives) }
     
     it "has correct state" do
       expect(game.secret).to eq(secret)
@@ -38,7 +38,7 @@ RSpec.describe Game, :type => :model do
       game.reload
       
       expect(game.secret).to eq(secret)
-      expect(game.max_misses).to eq(max_misses)
+      expect(game.num_of_lives).to eq(num_of_lives)
       expect_game_not_over
     end
   end
@@ -47,7 +47,7 @@ RSpec.describe Game, :type => :model do
     let(:secret) { "xyz" }
     let(:wrong_guesses) { ("a" .. "e").to_a }
     subject(:game) do 
-      game = Game.new(secret: secret, max_misses: 6)
+      game = Game.new(secret: secret, num_of_lives: 6)
       game.save!
       
       wrong_guesses.each do |letter|

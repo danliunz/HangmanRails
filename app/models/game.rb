@@ -4,7 +4,7 @@ class Game < ActiveRecord::Base
   validates :secret, format: { with: /\A[[:lower:]]+\z/, 
     message: "must be of lower-case alphabetic letters" }
     
-  validates :max_misses, numericality: { only_integer: true,
+  validates :num_of_lives, numericality: { only_integer: true,
     greater_than: 0 }
   
   def guesses
@@ -32,6 +32,6 @@ class Game < ActiveRecord::Base
   end
   
   def lost?
-    missed_guesses.size >= max_misses
+    missed_guesses.size >= num_of_lives
   end
 end

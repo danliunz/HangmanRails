@@ -1,10 +1,9 @@
 <div class="container">
-  <%= render "game_title" %>
+  <%= render partial: "game_title" %>
   
   <div class="row">
     <div class="col-xs-8">
-      <%= render partial: "game_status", 
-                 locals: { game: @game, invalid_guess: @invalid_guess } %>
+      <%= render partial: "game_status", locals: { game: @game, guess: @guess } %>
       <%= render partial: "game_secret", locals: { game: @game } %>
       <%= render partial: "game_input", locals: { game: @game } %>
     </div>

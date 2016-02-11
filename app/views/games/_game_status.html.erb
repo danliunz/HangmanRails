@@ -5,17 +5,15 @@
     <div class="alert alert-danger">Game Lost</div>
   <% end %>
   
-  <% if defined?(guess) && guess.errors.any? %>
-    <div class="alert alert-danger">
-      <% guess.errors.full_messages.each do |msg| %>
-        <p><%= msg %></p>
-      <% end %>
-    </div>
-  <% elsif game.errors.any? %>
+  <% if game.errors.any? || alert %>
     <div class="alert alert-danger">
       <% game.errors.full_messages.each do |msg| %>
         <p><%= msg %></p>
       <% end %>
+      <% if alert %>
+        <p><%= alert %></p>
+      <% end %> 
     </div>
   <% end %>
+  
 </div>

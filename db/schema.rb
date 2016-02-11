@@ -11,15 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126215515) do
+ActiveRecord::Schema.define(version: 20160205014552) do
 
   create_table "games", force: true do |t|
-    t.string   "secret",     limit: 32,              null: false
-    t.string   "guesses",    limit: 64, default: "", null: false
-    t.integer  "max_misses",                         null: false
+    t.string   "secret",     limit: 32, null: false
+    t.integer  "max_misses",            null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "status",                default: 0,  null: false
   end
+
+  create_table "guesses", force: true do |t|
+    t.string   "letter",     limit: 1, null: false
+    t.integer  "game_id",              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "guesses", ["game_id", "letter"], name: "index_guesses_on_game_id_and_letter", unique: true, using: :btree
 
 end

@@ -1,6 +1,6 @@
 class GamePresenter < SimpleDelegator
-  def need_obsecure_from_player?(secret_char)
-    !over? && !guessed?(secret_char)
+  def visible_to_player?(secret_letter)
+    over? || guessed?(secret_letter)
   end
   
   def last_played_at

@@ -3,11 +3,13 @@
   
   <div class="row">
     <div class="col-xs-8">
-      <%= render partial: "game_status", locals: { game: @game } %>
+      <%= render partial: "game_status", 
+                 locals: { game: @game, invalid_guess: @invalid_guess } %>
       <%= render partial: "game_secret", locals: { game: @game } %>
       <%= render partial: "game_input", locals: { game: @game } %>
     </div>
     <div class="col-xs-4">
+      <!-- TODO: use games_helper -->
       <%= 
         image_tag "hang_#{@game.missed_guesses.size + 1}.gif",
                   alt: "#{@game.missed_guesses.size} missed guesses",

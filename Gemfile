@@ -29,6 +29,9 @@ gem 'spring',        group: :development
 # Paginate on web page
 gem 'will_paginate', '~> 3.0.6'
 
+# test by rspec
+gem "rspec-rails", :group => [:development, :test]
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

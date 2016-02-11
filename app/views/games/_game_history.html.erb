@@ -12,11 +12,11 @@
       <tr>
         <td>
           <%= game.secret.gsub(/./) do |c| %>
-            <% game.need_obsecure_from_player?(c) ? " _ " : "#{c}"%>
+            <% game.visible_to_player?(c) ? "#{c}" : " _ " %>
           <% end %>
         </td>
         <td>
-          <%= game.guesses.join(" ") %>
+          <%= game.guesses.map(&:letter).join(" ") %>
         </td>
         <td>
           <% if game.won? %>

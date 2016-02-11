@@ -6,31 +6,27 @@
     <% ("a" .. "z").each_slice(9) do |chars| %>
       <div>
         <div class="btn-group">
-          <% chars.each do |c| %>
+          <% chars.each do |char| %>
+            <!-- TODO: use helper method to generate css tag -->
+            <!-- TODO: use button_to to generate form for each guess -->
             <button class="btn btn-default 
-                           <%= 'invisible' if game.guessed?(c) %>
+                           <%= 'invisible' if game.guessed?(char) %>
                            <%= 'disabled' if game.over? %>">
-              <%= c %>
+              <%= char %>
             </button>
           <% end %>
         </div>
       </div>
     <% end %>
   </div>
+  
+  <!-- hidden submission form -->
+  <div>
+    <%= form_tag submit_guess_path(game), id: "submit_guess_form" do %>
+      <div>
+       <%= text_field_tag "guess", nil%>
+       <%= submit_tag "Guess" %>
+      </div>
+    <% end %>
+  </div>
 </div>
-
-<!-- hidden submission form -->
-<div>
-  <%= form_tag submit_guess_path(game), id: "submit_guess_form" do %>
-    <div>
-     <%= text_field_tag "guess", nil%>
-     <%= submit_tag "Guess" %>
-    </div>
-  <% end %>
-</div>
-
-<script>
-  $(document).ready(function() {
-    init_guess_submission();
-  });
-</script>

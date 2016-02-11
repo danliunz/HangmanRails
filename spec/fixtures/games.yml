@@ -1,0 +1,5 @@
+# each game is named after the secret word
+dragon:
+  secret: dragon
+  max_misses: 6
+  

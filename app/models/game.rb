@@ -1,27 +1,26 @@
 class Game < ActiveRecord::Base
+  has_many :guesses
   
-  include GuessValidator
-  
-  # -guesses- : array of char or string
-  def guesses=(guesses)
-    super(Array(guesses).join)
-  end
+  validates :secret, format: { with: /\A[[:lower:]]+\z/, 
+    message: "must be of lower-case alphabetic letters" }
+    
+  validates :max_misses, numericality: { only_integer: true,
+    greater_than: 0 }
   
   def guesses
-    super.chars
+    super.order(id: :asc)
   end
   
-  def submit_guess(guess)
-    self.guesses = guesses << guess
-    self
+  def submit_guess(letter)
+    guesses.create(letter: letter)
   end
   
-  def guessed?(guess)
-    guesses.include?(guess)
+  def guessed?(letter)
+    guesses.any? { |guess| guess.letter == letter }
   end
   
   def missed_guesses
-    guesses - secret.chars
+    guesses.reject { |guess| secret.include?(guess.letter) }
   end
 
   def over?
@@ -29,7 +28,7 @@ class Game < ActiveRecord::Base
   end
   
   def won?
-    (secret.chars - guesses).empty?
+    secret.chars.all? { |secret_letter| guessed?(secret_letter) }
   end
   
   def lost?

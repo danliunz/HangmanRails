@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   post 'games' => 'games#create'
   
   get 'games/:id' => 'games#show', as: 'game'
-  post 'games/:id' => 'games#submit_guess', as: 'submit_guess'
+  
+  post 'games/:game_id/guesses' => 'guesses#create', as: 'submit_guess'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

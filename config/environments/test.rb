@@ -36,4 +36,9 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  
+  # Tip from capybara: 
+  # Rails 4.0/4.1 default test environment is not threadsafe.
+  # If you experience random errors about missing constants, add following line
+  config.allow_concurrency = false
 end

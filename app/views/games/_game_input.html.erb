@@ -3,16 +3,12 @@
     Click on a letter
   </div>
   <div class="panel-body">
-    <% ("a" .. "z").each_slice(9) do |chars| %>
+    <% ("a" .. "z").each_slice(9) do |letters| %>
       <div>
         <div class="btn-group">
-          <% chars.each do |char| %>
-            <!-- TODO: use helper method to generate css tag -->
-            <!-- TODO: use button_to to generate form for each guess -->
-            <button class="btn btn-default 
-                           <%= 'invisible' if game.guessed?(char) %>
-                           <%= 'disabled' if game.over? %>">
-              <%= char %>
+          <% letters.each do |letter| %>
+            <button class="<%= game_input_button_css_class(game, letter) %>">
+              <%= letter %>
             </button>
           <% end %>
         </div>

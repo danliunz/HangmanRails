@@ -1,5 +1,5 @@
 class Game
   class Config
-    NUM_OF_LIVES = 6
+    INITIAL_NUM_OF_LIVES = 6
   end
 end

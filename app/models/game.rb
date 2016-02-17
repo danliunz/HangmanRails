@@ -1,15 +1,12 @@
 class Game < ActiveRecord::Base
-  has_many :guesses
+  has_many :guesses, -> { order(id: :asc) }
   
   validates :secret, format: { with: /\A[[:lower:]]+\z/, 
     message: "must be of lower-case alphabetic letters" }
-    
-  validates :num_of_lives, numericality: { only_integer: true,
-    greater_than: 0 }
   
-  def guesses
-    super.order(id: :asc)
-  end
+  # better name , avoid confusion
+  validates :initial_num_of_lives, numericality: { only_integer: true,
+    greater_than: 0 }
   
   def submit_guess(letter)
     guesses.create(letter: letter)
@@ -32,6 +29,6 @@ class Game < ActiveRecord::Base
   end
   
   def lost?
-    missed_guesses.size >= num_of_lives
+    missed_guesses.size >= initial_num_of_lives
   end
 end

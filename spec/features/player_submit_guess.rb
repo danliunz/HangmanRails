@@ -1,14 +1,8 @@
 require "rails_helper"
 
 feature "Guess submission", :js => true do
-  self.use_transactional_fixtures = false
-  
   fixtures :games
   let(:game) { games(:dragon) }
-  
-  def cleanup_database
-    game.guesses.destroy_all
-  end
   
   def visit_game_detail_page
     visit "/games/#{game.id}"
@@ -29,14 +23,10 @@ feature "Guess submission", :js => true do
     expect(find(".game-secret .label:first-child")).to have_content("d")
   end
   
-  def expect_not_guessed_secret_still_obscured
+  def expect_unguessed_secret_still_obscured
     all(".game-secret .label:not(:first-child)").each do |secret_label|
       expect(secret_label).to have_content("_")
     end
-  end
-  
-  after(:each) do
-    cleanup_database
   end
   
   it "allows player to submit a valid guess" do
@@ -45,7 +35,7 @@ feature "Guess submission", :js => true do
     
     player_make_correct_guess
     expect_correct_guess_visible_in_game_secret
-    expect_not_guessed_secret_still_obscured
+    expect_unguessed_secret_still_obscured
   end
   
 end

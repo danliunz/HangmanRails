@@ -1,5 +1,5 @@
 # each game is named after the secret word
 dragon:
   secret: dragon
-  num_of_lives: 6
+  initial_num_of_lives: 6
   

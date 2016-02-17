@@ -10,9 +10,9 @@
   <tbody>
     <% games.each do |game| %>
       <tr>
-        <td><%= obscured_game_secret(game) %></td>
+        <td><%= game.obscured_secret %></td>
         <td>
-          <%= game.guesses.map(&:letter).join(" ") %>
+          <%= game.guesses_as_string %>
         </td>
         <td>
           <% if game.won? %>

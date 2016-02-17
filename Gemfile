@@ -29,14 +29,13 @@ gem 'spring',        group: :development
 # Paginate on web page
 gem 'will_paginate', '~> 3.0.6'
 
-# test by rspec
-gem "rspec-rails", :group => [:development, :test]
-
-# test by capybara
-gem 'capybara', ' >= 2.4.0', :group => [:development, :test]
-
-# test javascript in browser
-gem 'selenium-webdriver', :group => [:development, :test]
+# Test infrastructure
+group :test do
+  gem 'rspec-rails'
+  gem 'capybara', ' >= 2.4.0'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner', '~> 1.5', '>= 1.5.1'
+end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

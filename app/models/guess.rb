@@ -4,7 +4,8 @@ class Guess < ActiveRecord::Base
   validates :game, presence: true
   validates :letter, format: { with: /\A[[:lower:]]\z/,
     message: "must be single lower-case alphabetic letter" }
-    
+ 
+  # TODO: move following validation logic into a service?
   validate :disallow_guess_after_game_over, 
     if: :has_valid_game, on: :create
   

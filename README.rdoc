@@ -1,28 +1,14 @@
-== README
+Hangman game implemented in Ruby Rails
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The projects serves an exercise ground for Powershop NZ trainees.
+It demonstrates a few essential Rails features including
 
-Things you may want to cover:
+1. model with validation
+2. controller
+3. view rendering
+4. service
+5. test cases based on RSpec and Capybara
+6. most importantly, Ruby/Rails best practice in action
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+To run the program, simply 
+# cd <project_top_dir> && rails s

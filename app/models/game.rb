@@ -4,7 +4,6 @@ class Game < ActiveRecord::Base
   validates :secret, format: { with: /\A[[:lower:]]+\z/, 
     message: "must be of lower-case alphabetic letters" }
   
-  # better name , avoid confusion
   validates :initial_num_of_lives, numericality: { only_integer: true,
     greater_than: 0 }
   

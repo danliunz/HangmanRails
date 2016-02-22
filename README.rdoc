@@ -10,5 +10,6 @@ It demonstrates a few essential Rails features including
 5. test cases based on RSpec and Capybara
 6. most importantly, Ruby/Rails best practice in action
 
-To run the program, simply 
+To run the program, simply
+
 # cd <project_top_dir> && rails s

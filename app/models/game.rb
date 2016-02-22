@@ -7,10 +7,6 @@ class Game < ActiveRecord::Base
   validates :initial_num_of_lives, numericality: { only_integer: true,
     greater_than: 0 }
   
-  def submit_guess(letter)
-    guesses.create(letter: letter)
-  end
-  
   def guessed?(letter)
     guesses.any? { |guess| guess.letter == letter }
   end

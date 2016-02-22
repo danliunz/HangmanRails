@@ -36,7 +36,7 @@ RSpec.describe Game, :type => :model do
     subject(:game) { Game.create!(secret: secret, initial_num_of_lives: 6) }
     
     it "returns letters ordered by guessing time ascendingly" do
-      ("a" .. "z").each { |guess| game.submit_guess(guess) }
+      ("a" .. "z").each { |guess| SubmitGuess.call(game, guess) }
       
       game.guesses.reload
       
@@ -68,9 +68,9 @@ RSpec.describe Game, :type => :model do
   
   context "when submitted guesses" do
     let(:guesses) { %w{a b c} }
-    let(:game) { Game.create!(secret: "xyz", initial_num_of_lives: 6) }
+    let(:game) { Game.create!(secret: "xyz", initial_num_of_lives: 7) }
     before(:each) do
-      guesses.each { |guess| game.submit_guess(guess) }
+      guesses.each { |guess| SubmitGuess.call(game, guess) }
     end
     
     it "records all guesses" do
@@ -79,7 +79,7 @@ RSpec.describe Game, :type => :model do
       end
     end
   
-    context "when submitted too many wrong guesses" do
+    context "with too many misses" do
       let(:guesses) { ("a" .. "g").to_a }
       
       it "records all missed guesses" do
@@ -91,7 +91,7 @@ RSpec.describe Game, :type => :model do
       end
     end
     
-    context "when submitted all right guesses" do
+    context "matching all secret letters" do
       let(:guesses) { %w{a b c z y x} }
       
       it "is won" do

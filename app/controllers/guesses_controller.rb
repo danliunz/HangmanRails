@@ -2,12 +2,11 @@ class GuessesController < ApplicationController
   def create
    @game = Game.find(params[:game_id])
    
-   @guess = @game.submit_guess(params[:guess])
-   if @guess.valid?
+   @guess = SubmitGuess.call(@game, params[:guess])
+   if @guess.errors.empty?
      bring_game_to_top_of_history
    else
-     flash[:alert] = @guess.errors.full_messages.first
-     @game.guesses.delete(@guess)
+     flash[:alert] = @guess.errors.full_messages.join("\n")
    end
    
    redirect_to game_url(@game)

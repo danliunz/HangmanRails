@@ -10,7 +10,7 @@ RSpec.describe Guess, :type => :model do
     end
     
     def finish_game
-      secret.chars.uniq.each { |letter| SubmitGuess.call(game, letter) }  
+      secret.chars.uniq.each { |letter| MakeGuess.new(game, letter).call }  
     end
     
     it "reports missing association with game" do
@@ -20,16 +20,16 @@ RSpec.describe Guess, :type => :model do
     end
     
     it "reports invalid guessed letter" do
-      guess = SubmitGuess.call(game, "1")
+      guess = MakeGuess.new(game, "1").call
       expect(guess).to be_invalid
       expect(guess.errors[:letter]).not_to be_empty
     end
     
     it "reports repeated guess" do
-      guess = SubmitGuess.call(game, "f")
+      guess = MakeGuess.new(game, "f").call
       expect(guess).to be_valid
       
-      guess = SubmitGuess.call(game, "f")
+      guess = MakeGuess.new(game, "f").call
       expect(guess.errors[:letter].first).to match(/guessed before/)
     end
     
@@ -37,7 +37,7 @@ RSpec.describe Guess, :type => :model do
       finish_game
       expect(game).to be_over
       
-      guess = SubmitGuess.call(game, "x")
+      guess = MakeGuess.new(game, "x").call
       expect(guess.errors[:base].first).to match(/game over/)
     end
   end
@@ -50,7 +50,7 @@ RSpec.describe Guess, :type => :model do
     end
     
     it "can be saved into DB" do
-      guess = SubmitGuess.call(game, "s")
+      guess = MakeGuess.new(game, "s").call
       expect(guess).to be_valid
       expect(game.guesses.count).to eq(1)
       

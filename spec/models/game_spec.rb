@@ -36,7 +36,7 @@ RSpec.describe Game, :type => :model do
     subject(:game) { Game.create!(secret: secret, initial_num_of_lives: 6) }
     
     it "returns letters ordered by guessing time ascendingly" do
-      ("a" .. "z").each { |guess| SubmitGuess.call(game, guess) }
+      ("a" .. "z").each { |guess| MakeGuess.new(game, guess).call }
       
       game.guesses.reload
       
@@ -70,7 +70,7 @@ RSpec.describe Game, :type => :model do
     let(:guesses) { %w{a b c} }
     let(:game) { Game.create!(secret: "xyz", initial_num_of_lives: 7) }
     before(:each) do
-      guesses.each { |guess| SubmitGuess.call(game, guess) }
+      guesses.each { |guess| MakeGuess.new(game, guess).call }
     end
     
     it "records all guesses" do

@@ -18,20 +18,20 @@ class MakeGuess
   
   def validate(guess)
     if guess.valid?
-      disallow_repeated_guess(guess)
-      disallow_guess_after_game_over(guess)
+      validate_repeated_guess(guess)
+      validate_game_not_over(guess)
     end
     
     guess.errors.empty?
   end
   
-  def disallow_guess_after_game_over(guess)
+  def validate_game_not_over(guess)
     if guess.game.over?
       guess.errors.add(:base, "Guess is disallowed after game over")
     end
   end
   
-  def disallow_repeated_guess(guess)
+  def validate_repeated_guess(guess)
     if guess.game.guessed?(guess.letter)
       guess.errors.add(:letter, "#{guess.letter} has been guessed before")
     end

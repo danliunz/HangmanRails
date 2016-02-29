@@ -15,7 +15,7 @@ class GamesController < ApplicationController
   def create
     game = Game.new(
       secret: ChooseRandomWord.new.call,
-      initial_num_of_lives: Game::Config::INITIAL_NUM_OF_LIVES
+      initial_number_of_lives: Game::Config::INITIAL_NUMBER_OF_LIVES
     )
     
     if game.save

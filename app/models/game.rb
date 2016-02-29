@@ -1,18 +1,22 @@
 class Game < ActiveRecord::Base
-  has_many :guesses, -> { order(id: :asc) }
+  has_many :guesses
   
-  validates :secret, format: { with: /\A[[:lower:]]+\z/, 
-    message: "must be of lower-case alphabetic letters" }
+  validates :secret, format: {
+    with: /\A[[:lower:]]+\z/, 
+    message: "must be of lower-case alphabetic letters"
+  }
   
-  validates :initial_num_of_lives, numericality: { only_integer: true,
-    greater_than: 0 }
+  validates :initial_number_of_lives, numericality: {
+    only_integer: true,
+    greater_than: 0 
+  }
   
   def guessed?(letter)
-    guesses.any? { |guess| guess.letter == letter }
+    guesses.map(&:letter).include?(letter)
   end
   
   def missed_guesses
-    guesses.reject { |guess| secret.include?(guess.letter) }
+    guesses.select { |guess| secret.exclude?(guess.letter) }
   end
 
   def over?
@@ -24,6 +28,6 @@ class Game < ActiveRecord::Base
   end
   
   def lost?
-    missed_guesses.size >= initial_num_of_lives
+    missed_guesses.size >= initial_number_of_lives
   end
 end

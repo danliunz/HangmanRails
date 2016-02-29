@@ -8,10 +8,10 @@ module GamesHelper
   end
   
   def game_input_button_css_class(game, letter)
-    css = "btn btn-default"
-    css << " invisible " if game.guessed?(letter)
-    css << " disabled " if game.over?
-    
-    css
+    [
+      "btn btn-default",
+      ("invisible" if game.guessed?(letter)),
+      ("disabled" if game.over?)
+    ].compact.join(' ')
   end
 end

@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217011705) do
+ActiveRecord::Schema.define(version: 20160228201151) do
 
   create_table "games", force: true do |t|
-    t.string   "secret",               limit: 32, null: false
-    t.integer  "initial_num_of_lives",            null: false
+    t.string   "secret",                  limit: 32, null: false
+    t.integer  "initial_number_of_lives",            null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -19,38 +19,30 @@ RSpec.describe Game, :type => :model do
     expect(game).to be_lost
   end
   
-  describe "#new" do
-    it "fails with invalid secret" do
-      game = Game.new(secret: "NOT LOWCASE WORD", initial_num_of_lives: 6)
-      expect(game).not_to be_valid
-    end
-    
-    it "fails if initial_number_of_lives are not positive integer" do
-      game = Game.new(secret: "valid", initial_num_of_lives: -1)
-      expect(game).not_to be_valid
-    end
-  end
+  let(:lives) { 6 }
+  let(:secret) { "valid" }
+  subject(:game) { Game.create(secret: secret, initial_number_of_lives: lives) }
   
-  describe "#guesses" do
-    let(:secret) { ("a" .. "z").to_a.join }
-    subject(:game) { Game.create!(secret: secret, initial_num_of_lives: 6) }
-    
-    it "returns letters ordered by guessing time ascendingly" do
-      ("a" .. "z").each { |guess| MakeGuess.new(game, guess).call }
+  describe "#new" do
+    context "with invalid secret" do
+      let(:secret) { "MUST BE LOWCASE WORD"}
       
-      game.guesses.reload
+      it "creates invalid instance" do
+        expect(game).to be_invalid
+      end
+    end
+
+    context "with initial_number_of_lives as non-positive integer" do
+      let(:lives) { -1 }
       
-      expect(game.guesses.map { |guess| guess.letter })
-        .to eq(("a" .. "z").to_a)
+      it "creates invalid instance" do
+        expect(game).to be_invalid
+      end
     end
   end
   
   context "after created successfully" do
     let(:secret) { "goblin" }
-    let(:lives) { 6 }
-    subject(:game) do
-      Game.new(secret: secret, initial_num_of_lives: lives)
-    end
     
     it "has 0 missed guesses" do
       expect(game.missed_guesses).to be_empty
@@ -66,9 +58,10 @@ RSpec.describe Game, :type => :model do
     end
   end
   
-  context "when submitted guesses" do
+  context "when guesses are submitted" do
+    let(:secret) { "xyz" }
+    let(:lives) { 7 }
     let(:guesses) { %w{a b c} }
-    let(:game) { Game.create!(secret: "xyz", initial_num_of_lives: 7) }
     before(:each) do
       guesses.each { |guess| MakeGuess.new(game, guess).call }
     end
@@ -91,7 +84,7 @@ RSpec.describe Game, :type => :model do
       end
     end
     
-    context "matching all secret letters" do
+    context "when all secrets are guessed" do
       let(:guesses) { %w{a b c z y x} }
       
       it "is won" do

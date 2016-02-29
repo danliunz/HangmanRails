@@ -4,13 +4,13 @@ class GamePresenter < SimpleDelegator
   end
   
   def obscured_secret
-    secret.gsub(/./) do |letter|
-      visible_to_player?(letter) ? "#{letter}" : " _ "
-    end
+    secret.chars.map do |letter|
+      visible_to_player?(letter) ? letter : " _ "
+    end.join
   end
   
   def guesses_as_string
-    guesses.map(&:letter).join(" ")
+    guesses.order(id: :asc).map(&:letter).join(" ")
   end
   
   def last_played_at

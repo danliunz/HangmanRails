@@ -1,5 +1,8 @@
+# Return a random English word from dictionary
 class ChooseRandomWord
-  # Return a random English word from dictionary
+  WORDS_FILE = "/usr/share/dict/words"
+  VALID_WORD_LENGTH_RANGE = 4..9
+  
   def call
     words.sample
   end
@@ -8,9 +11,9 @@ class ChooseRandomWord
 
   def words
     @words ||= begin
-      File.readlines("/usr/share/dict/words")
+      File.readlines(WORDS_FILE)
         .map { |line| line.chomp.downcase }
-        .select { |line| line.length.between?(4, 6) }
+        .select { |line| VALID_WORD_LENGTH_RANGE.cover?(line.length) }
     end
   end
 end

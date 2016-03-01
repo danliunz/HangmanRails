@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-xs-8">
       <%= render partial: "game_status", locals: { game: @game } %>
-      <%= render partial: "game_secret", locals: { game: @game } %>
+      <%= render partial: "game_secret", locals: { game: GamePresenter.new(@game) } %>
       <%= render partial: "game_input", locals: { game: @game } %>
     </div>
     <div class="col-xs-4">

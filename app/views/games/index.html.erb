@@ -17,7 +17,7 @@
     <div class="col-xs-12">
       <h4>Game History</h4>
       
-      <%= render partial: "game_history", 
+      <%= render partial: "game_history",
                  locals: { games: @games.map { |g| GamePresenter.new(g) } } %>
       
       <%= will_paginate @games, class: "digg_pagination",

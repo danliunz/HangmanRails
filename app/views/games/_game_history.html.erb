@@ -21,7 +21,7 @@
             <button class="btn btn-danger" disabled>lost</button>
           <% else %>
             <button class="btn btn-default">
-              <%= link_to "resume", game_path(game) %>
+              <%= link_to "resume", game_path(game.delegate) %>
             </button>
           <% end %>
         </td>
